@@ -1,6 +1,8 @@
-http://left-tt.github.io/2024/09/06/first-article/
+http://left-tt.github.io/2024/09/06/DATA%20SYSTEM%20Exercise%201:%20SQL/
+http://left-tt.github.io/2024/09/07/DATA%20SYSTEM%20Exercise%202:%20SQL%20trigger%20exercise/
 http://left-tt.github.io/link/index.html
 http://left-tt.github.io/categories/index.html
 http://left-tt.github.io/tags/index.html
 http://left-tt.github.io/2024/09/06/hello-world/
 http://left-tt.github.io/
+http://left-tt.github.io/tags/DATA-SYSTEM/
