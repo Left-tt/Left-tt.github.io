@@ -2,16 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://left-tt.github.io/2024/09/07/Swift-day1/</loc>
-    
-    <lastmod>2024-09-07</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://left-tt.github.io/2024/09/07/DATA-SYSTEM-Exercise-3-E-R-diagram/</loc>
+    <loc>http://left-tt.github.io/2024/09/07/DATA-SYSTEM-Exercise-2-SQL-trigger-exercise/</loc>
     
     <lastmod>2024-09-07</lastmod>
     
@@ -29,7 +20,16 @@
   </url>
   
   <url>
-    <loc>http://left-tt.github.io/2024/09/07/DATA-SYSTEM-Exercise-2-SQL-trigger-exercise/</loc>
+    <loc>http://left-tt.github.io/2024/09/07/Swift-day1/</loc>
+    
+    <lastmod>2024-09-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://left-tt.github.io/2024/09/07/DATA-SYSTEM-Exercise-3-E-R-diagram/</loc>
     
     <lastmod>2024-09-07</lastmod>
     
