@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://left-tt.github.io/2024/09/07/Swift-day1/</loc>
+    
+    <lastmod>2024-09-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://left-tt.github.io/2024/09/07/DATA-SYSTEM-Exercise-3-E-R-diagram/</loc>
+    
+    <lastmod>2024-09-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://left-tt.github.io/2024/09/06/DATA%20SYSTEM%20Exercise%201:%20SQL/</loc>
     
     <lastmod>2024-09-07</lastmod>
@@ -12,6 +30,15 @@
   
   <url>
     <loc>http://left-tt.github.io/2024/09/07/DATA%20SYSTEM%20Exercise%202:%20SQL%20trigger%20exercise/</loc>
+    
+    <lastmod>2024-09-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://left-tt.github.io/2024/09/06/hello-world/</loc>
     
     <lastmod>2024-09-07</lastmod>
     
@@ -46,15 +73,6 @@
     <priority>0.6</priority>
   </url>
   
-  <url>
-    <loc>http://left-tt.github.io/2024/09/06/hello-world/</loc>
-    
-    <lastmod>2024-09-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
 
   <url>
     <loc>http://left-tt.github.io/</loc>
@@ -66,6 +84,13 @@
   
   <url>
     <loc>http://left-tt.github.io/tags/DATA-SYSTEM/</loc>
+    <lastmod>2024-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://left-tt.github.io/tags/IOS/</loc>
     <lastmod>2024-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
