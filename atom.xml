@@ -6,7 +6,7 @@
   <link href="http://left-tt.github.io/atom.xml" rel="self"/>
   
   <link href="http://left-tt.github.io/"/>
-  <updated>2024-09-07T06:59:43.106Z</updated>
+  <updated>2024-09-10T11:47:11.184Z</updated>
   <id>http://left-tt.github.io/</id>
   
   <author>
@@ -17,17 +17,23 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Swift day1</title>
-    <link href="http://left-tt.github.io/2024/09/07/Swift-day1/"/>
-    <id>http://left-tt.github.io/2024/09/07/Swift-day1/</id>
-    <published>2024-09-07T06:59:00.000Z</published>
-    <updated>2024-09-07T06:59:43.106Z</updated>
+    <title>Data Science Thinking 知识点大纲（更新中）</title>
+    <link href="http://left-tt.github.io/2024/09/10/Data-Science-Thinking-%EF%BC%88summary-of-key-points/"/>
+    <id>http://left-tt.github.io/2024/09/10/Data-Science-Thinking-%EF%BC%88summary-of-key-points/</id>
+    <published>2024-09-10T11:05:51.000Z</published>
+    <updated>2024-09-10T11:47:11.184Z</updated>
+    
+    <content type="html"><![CDATA[<p>此文档旨在梳理课程知识点逻辑，具体细节请参照课件</p><h1 id="Lecture-1-Overall-Introduction"><a href="#Lecture-1-Overall-Introduction" class="headerlink" title="Lecture 1: Overall Introduction"></a>Lecture 1: Overall Introduction</h1><ol><li>Course Introduction</li><li>Definitions and KDD Process        </li><li>Data Mining Tasks and Methods</li></ol><h1 id="Lecture-2-Data-and-Data-Exploration-1"><a href="#Lecture-2-Data-and-Data-Exploration-1" class="headerlink" title="Lecture 2: Data and Data Exploration (1)"></a>Lecture 2: Data and Data Exploration (1)</h1><ol><li>What Kinds of Data to be Mined?</li><li>Data Attribute types</li><li>Types of Data Sets</li><li>Characteristics of Structured Data</li><li>Data preprocessing</li></ol><h1 id="Lecture-3-Data-and-Data-Exploration-2"><a href="#Lecture-3-Data-and-Data-Exploration-2" class="headerlink" title="Lecture 3: Data and Data Exploration (2)"></a>Lecture 3: Data and Data Exploration (2)</h1><ol><li>Measure of Similarity &amp; Dissimilarity</li><li>What is data exploration?</li></ol><h1 id="Lecture-4-Predictive-Methods"><a href="#Lecture-4-Predictive-Methods" class="headerlink" title="Lecture 4: Predictive Methods"></a>Lecture 4: Predictive Methods</h1><ul><li>Classification<ul><li>Classification Techniques<ul><li>Decision Tree based Methods</li><li>Rule-based Methods</li><li>Memory-based or Instance-based Methods </li><li>Naïve Bayes Classifiers</li><li>Support Vector Machines</li><li>Neural Networks and Deep Learning</li><li>Ensemble Classification</li></ul></li></ul></li><li>Regression<ul><li>Linear Regression</li></ul></li></ul><h1 id="Lecture-5-Descriptive-Methods"><a href="#Lecture-5-Descriptive-Methods" class="headerlink" title="Lecture 5: Descriptive Methods"></a>Lecture 5: Descriptive Methods</h1><ul><li>Clustering<ol><li>Definition</li><li>Types of Clustering</li><li>Types of Clusters<ul><li>Well-separated clusters</li><li>Center-based clusters</li><li>Contiguous clusters</li><li>Density-based clusters</li><li>Property or Conceptual</li><li>Described by an Objective Function</li></ul></li><li>K-means Clustering</li><li>DBSCAN</li></ol></li></ul><h1 id="Lecture-6-Data-Privacy-and-Federal-Learning"><a href="#Lecture-6-Data-Privacy-and-Federal-Learning" class="headerlink" title="Lecture 6: Data Privacy and Federal Learning"></a>Lecture 6: Data Privacy and Federal Learning</h1>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;此文档旨在梳理课程知识点逻辑，具体细节请参照课件&lt;/p&gt;
+&lt;h1 id=&quot;Lecture-1-Overall-Introduction&quot;&gt;&lt;a href=&quot;#Lecture-1-Overall-Introduction&quot; class=&quot;headerlink&quot; title=&quot;</summary>
+      
     
     
     
-    
-    
-    <category term="IOS" scheme="http://left-tt.github.io/tags/IOS/"/>
     
   </entry>
   

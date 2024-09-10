@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://left-tt.github.io/2024/09/10/Data-Science-Thinking-%EF%BC%88summary-of-key-points/</loc>
+    
+    <lastmod>2024-09-10</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://left-tt.github.io/2024/09/07/DATA-SYSTEM-Exercise-2-SQL-trigger-exercise/</loc>
     
     <lastmod>2024-09-07</lastmod>
@@ -12,15 +21,6 @@
   
   <url>
     <loc>http://left-tt.github.io/2024/09/06/DATA-SYSTEM-Exercise-1-SQL/</loc>
-    
-    <lastmod>2024-09-07</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://left-tt.github.io/2024/09/07/Swift-day1/</loc>
     
     <lastmod>2024-09-07</lastmod>
     
@@ -76,7 +76,7 @@
 
   <url>
     <loc>http://left-tt.github.io/</loc>
-    <lastmod>2024-09-07</lastmod>
+    <lastmod>2024-09-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -84,14 +84,7 @@
   
   <url>
     <loc>http://left-tt.github.io/tags/DATA-SYSTEM/</loc>
-    <lastmod>2024-09-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://left-tt.github.io/tags/IOS/</loc>
-    <lastmod>2024-09-07</lastmod>
+    <lastmod>2024-09-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

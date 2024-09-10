@@ -1,6 +1,6 @@
+http://left-tt.github.io/2024/09/10/Data-Science-Thinking-%EF%BC%88summary-of-key-points/
 http://left-tt.github.io/2024/09/07/DATA-SYSTEM-Exercise-2-SQL-trigger-exercise/
 http://left-tt.github.io/2024/09/06/DATA-SYSTEM-Exercise-1-SQL/
-http://left-tt.github.io/2024/09/07/Swift-day1/
 http://left-tt.github.io/2024/09/07/DATA-SYSTEM-Exercise-3-E-R-diagram/
 http://left-tt.github.io/2024/09/06/hello-world/
 http://left-tt.github.io/link/index.html
@@ -8,4 +8,3 @@ http://left-tt.github.io/categories/index.html
 http://left-tt.github.io/tags/index.html
 http://left-tt.github.io/
 http://left-tt.github.io/tags/DATA-SYSTEM/
-http://left-tt.github.io/tags/IOS/
