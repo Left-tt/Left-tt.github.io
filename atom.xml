@@ -6,7 +6,7 @@
   <link href="http://left-tt.github.io/atom.xml" rel="self"/>
   
   <link href="http://left-tt.github.io/"/>
-  <updated>2024-09-10T11:47:11.184Z</updated>
+  <updated>2024-11-20T12:53:53.033Z</updated>
   <id>http://left-tt.github.io/</id>
   
   <author>
@@ -15,6 +15,73 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MongoDB</title>
+    <link href="http://left-tt.github.io/2024/11/20/MongoDB/"/>
+    <id>http://left-tt.github.io/2024/11/20/MongoDB/</id>
+    <published>2024-11-20T08:47:19.000Z</published>
+    <updated>2024-11-20T12:53:53.033Z</updated>
+    
+    <content type="html"><![CDATA[<p>环境配置<br>export PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;bin:$PATH</p><p>检查版本<br>mongod -version</p><p>新建文件夹存储数据和日志<br>mkdir data log</p><p>赋予读写权限<br>sudo chown username 路径</p><p>mongodb后台启动</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod --fork --dbpath data --logpath <span class="built_in">log</span>/mongo.log --logappend</span><br></pre></td></tr></table></figure><p>重新打开一个终端<br>mongo</p><p>查看当前数据库<br>db</p><p>关闭服务<br>切换管理员<br>use admin<br>db.shutdownServer({force:true})</p><p>mongodb的默认链接地址是localhost:27017(127.0.0.1:27017)<br>It looks like you are trying to access MongoDB over HTTP on the native driver port.</p><p>检查MongoDB是否启动成功，打开另一个终端窗口，并运行：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;环境配置&lt;br&gt;export PATH&amp;#x3D;&amp;#x2F;usr&amp;#x2F;local&amp;#x2F;mongodb&amp;#x2F;bin:$PATH&lt;/p&gt;
+&lt;p&gt;检查版本&lt;br&gt;mongod -version&lt;/p&gt;
+&lt;p&gt;新建文件夹存储数据和日志&lt;br&gt;mkdir dat</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Coursera: Machine Learning Specialization</title>
+    <link href="http://left-tt.github.io/2024/09/28/Coursera-Machine-Learning/"/>
+    <id>http://left-tt.github.io/2024/09/28/Coursera-Machine-Learning/</id>
+    <published>2024-09-28T14:12:11.000Z</published>
+    <updated>2024-09-29T09:17:11.376Z</updated>
+    
+    <content type="html"><![CDATA[<p>supervised learning<br>    regression<br>    classification</p><p>unsupervised learning<br>    clustering<br>    anomaly detection<br>    dimensionality reduction</p><p>cost function<br>    gradient descent</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;supervised learning&lt;br&gt;    regression&lt;br&gt;    classification&lt;/p&gt;
+&lt;p&gt;unsupervised learning&lt;br&gt;    clustering&lt;br&gt;    anomaly detection&lt;br&gt;  </summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Coursera: Google Data Analytics</title>
+    <link href="http://left-tt.github.io/2024/09/28/Coursera-Google-Data-Analytics/"/>
+    <id>http://left-tt.github.io/2024/09/28/Coursera-Google-Data-Analytics/</id>
+    <published>2024-09-28T08:23:27.000Z</published>
+    <updated>2024-10-19T08:32:45.790Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li><p>Foundations: Data, Data, Everywhere</p><ul><li>Module 1: Introducing data analytics and analytical thinking</li><li>Module 2: The wonderful world of data</li><li>Module 3: Set up your data analytics toolbox</li><li>Module 4: Become a fair and impactful data professional</li></ul></li><li><p>Ask Questions to Make Data-Driven Decisions</p><ul><li><p>Making predictions</p></li><li><p>Categorizing things</p></li><li><p>Spotting something unusual</p></li><li><p>Identifying themes</p></li><li><p>Discovering</p></li><li><p>Finding paterns</p></li><li><p>Specific</p></li><li><p>Measurable</p></li><li><p>Action-oriented</p></li><li><p>Relevant</p></li><li><p>Time-bound</p></li></ul></li><li><p>Prepare Data for Exploration</p></li><li><p>Process Data from Dirty to Clean</p></li><li><p>Analyze Data to Answer Questions</p></li><li><p>Share Data Through the Art of Visualization</p></li><li><p>Data Analysis with R Programming</p></li><li><p>Google Data Analytics Capstone: Complete a Case Study</p></li></ol><p>data scientists<br>data analysts</p><p>data analysis<br>data analytics<br>data<br>data ecosystem</p><p>Data-driven decision-making</p><p>The five essential points to analytical skills<br>    curiosity<br>    understanding context<br>    having technical mindset<br>    data design<br>    data strategy</p><p>The five key aspects to analytical thinking<br>    * visualization<br>    strategy<br>    problem-orientation<br>    correlation<br>    big-picture and detail-oriented thinking</p><p>Variations of the data life cycle<br>    1. Plan<br>    2. Capture<br>    3. Manage<br>    4. Analyze<br>    5. Archive<br>    6. Destroy</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Foundations: Data, Data, Everywhere&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Module 1: Introducing data analytics and analytical thinking&lt;/li&gt;
+&lt;li&gt;Module 2:</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Data Science Thinking 知识点大纲（更新中）</title>
