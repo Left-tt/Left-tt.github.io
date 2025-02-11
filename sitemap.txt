@@ -1,7 +1,8 @@
+http://left-tt.github.io/2025/02/11/AI-Large-Model/
 http://left-tt.github.io/2024/11/20/MongoDB/
+http://left-tt.github.io/2024/09/10/Data-Science-Thinking-%EF%BC%88summary-of-key-points/
 http://left-tt.github.io/2024/09/28/Coursera-Google-Data-Analytics/
 http://left-tt.github.io/2024/09/28/Coursera-Machine-Learning/
-http://left-tt.github.io/2024/09/10/Data-Science-Thinking-%EF%BC%88summary-of-key-points/
 http://left-tt.github.io/2024/09/07/DATA-SYSTEM-Exercise-2-SQL-trigger-exercise/
 http://left-tt.github.io/2024/09/06/DATA-SYSTEM-Exercise-1-SQL/
 http://left-tt.github.io/2024/09/07/DATA-SYSTEM-Exercise-3-E-R-diagram/
