@@ -1,0 +1,351 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Hadoop | Chang's Blog</title><meta name="author" content="Chang Liu"><meta name="copyright" content="Chang Liu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="HDFS的Shell操作进程启停管理1. 一键启停脚本12$HADOOP_HOME&#x2F;sbin&#x2F;start-dfs.sh$HADOOP_HOME&#x2F;sbin&#x2F;stop_dfs.sh  2. 独立进程启停12$HADOOP_HOME&#x2F;sbin&#x2F;hadoop-daemon.sh$HADOOP_HOME&#x2F;bin&#x2F;hdfs --daemon  文件系统命令操作 HDFS与Linux系统一样，均是以&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop">
+<meta property="og:url" content="http://left-tt.github.io/2025/02/25/Hadoop/index.html">
+<meta property="og:site_name" content="Chang&#39;s Blog">
+<meta property="og:description" content="HDFS的Shell操作进程启停管理1. 一键启停脚本12$HADOOP_HOME&#x2F;sbin&#x2F;start-dfs.sh$HADOOP_HOME&#x2F;sbin&#x2F;stop_dfs.sh  2. 独立进程启停12$HADOOP_HOME&#x2F;sbin&#x2F;hadoop-daemon.sh$HADOOP_HOME&#x2F;bin&#x2F;hdfs --daemon  文件系统命令操作 HDFS与Linux系统一样，均是以&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://left-tt.github.io/img/drinkingcat.png">
+<meta property="article:published_time" content="2025-02-25T10:32:02.000Z">
+<meta property="article:modified_time" content="2025-06-30T09:50:12.568Z">
+<meta property="article:author" content="Chang Liu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://left-tt.github.io/img/drinkingcat.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://left-tt.github.io/2025/02/25/Hadoop/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Hadoop',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-06-30 17:50:12'
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Chang's Blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/drinkingcat.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Chang's Blog"><span class="site-name">Chang's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Hadoop</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-02-25T10:32:02.000Z" title="发表于 2025-02-25 18:32:02">2025-02-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-06-30T09:50:12.568Z" title="更新于 2025-06-30 17:50:12">2025-06-30</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Hadoop"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="HDFS的Shell操作"><a href="#HDFS的Shell操作" class="headerlink" title="HDFS的Shell操作"></a>HDFS的Shell操作</h2><h3 id="进程启停管理"><a href="#进程启停管理" class="headerlink" title="进程启停管理"></a>进程启停管理</h3><h4 id="1-一键启停脚本"><a href="#1-一键启停脚本" class="headerlink" title="1. 一键启停脚本"></a>1. 一键启停脚本</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">HADOOP_HOME/sbin/start-dfs.sh</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">HADOOP_HOME/sbin/stop_dfs.sh</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-独立进程启停"><a href="#2-独立进程启停" class="headerlink" title="2. 独立进程启停"></a>2. 独立进程启停</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">HADOOP_HOME/sbin/hadoop-daemon.sh</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">HADOOP_HOME/bin/hdfs --daemon</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="文件系统命令操作"><a href="#文件系统命令操作" class="headerlink" title="文件系统命令操作"></a>文件系统命令操作</h3><ul>
+<li><p>HDFS与Linux系统一样，均是以&#x2F;作为根目录的组织形式</p>
+<blockquote>
+<p>Linux: file:&#x2F;&#x2F;&#x2F;<br>HDFS: hdfs:&#x2F;&#x2F;namenode:port&#x2F;</p>
+</blockquote>
+</li>
+<li><p>注意：用协议头区分，平时一般不写协议头</p>
+</li>
+</ul>
+<h4 id="1-创建文件夹"><a href="#1-创建文件夹" class="headerlink" title="1. 创建文件夹"></a>1. 创建文件夹</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -mkdir [-p] \&lt;path&gt; ...</span><br><span class="line">hdfs dfs -mkdir [-p] \&lt;path&gt; ...</span><br></pre></td></tr></table></figure>
+<ul>
+<li>path 为待创建的目录</li>
+<li>-p选项的行为与Linux mkdir -p一致，它会沿着路径创建父目录</li>
+</ul>
+<h4 id="2-查看指定目录下内容"><a href="#2-查看指定目录下内容" class="headerlink" title="2. 查看指定目录下内容"></a>2. 查看指定目录下内容</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -ls [-h] [-R] [\&lt;path&gt; ...]</span><br><span class="line">hdfs dfs -ls [-h] [-R] [\&lt;path&gt; ...]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>path 指定目录路径</li>
+<li>-h 人性化显示文件size</li>
+<li>-R 递归查看指定目录及其子目录</li>
+</ul>
+<h4 id="3-上传文件到HDFS指定目录下"><a href="#3-上传文件到HDFS指定目录下" class="headerlink" title="3. 上传文件到HDFS指定目录下"></a>3. 上传文件到HDFS指定目录下</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -put [-f] [-p] &lt;localsrc&gt; ... &lt;dst&gt;</span><br><span class="line">hdfs dfs -put [-f] [-p] &lt;localsrc&gt; ... &lt;dst&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-f 覆盖目标文件（已存在下）</li>
+<li>-p 保留访问和修改时间，所有权和权限</li>
+<li>localsrc 本地文件系统（客户端所在机器）</li>
+<li>dst 目标文件系统（HDFS）</li>
+</ul>
+<h4 id="4-查看HDFS文件内容"><a href="#4-查看HDFS文件内容" class="headerlink" title="4. 查看HDFS文件内容"></a>4. 查看HDFS文件内容</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -cat &lt;src&gt; ...</span><br><span class="line">hdfs dhs -cat &lt;src&gt; ...</span><br></pre></td></tr></table></figure>
+<ul>
+<li>读取大文件可以使用管道符配合more</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -cat &lt;src&gt; | more</span><br><span class="line">hdfs dfs -cat &lt;src&gt; | more</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-下载HDFS文件"><a href="#5-下载HDFS文件" class="headerlink" title="5. 下载HDFS文件"></a>5. 下载HDFS文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -get [-f] [-p] &lt;src&gt; ... &lt;localdst&gt;</span><br><span class="line">hdfs dfs -get [-f] [-p] &lt;src&gt; ... &lt;localdst&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>下载文件到本地文件系统指定目录，localdst必须是目录</li>
+<li>-f 覆盖目标文件（已存在下）</li>
+<li>-p 保留访问和修改时间，所有权和权限</li>
+</ul>
+<h4 id="6-拷贝HDFS文件"><a href="#6-拷贝HDFS文件" class="headerlink" title="6. 拷贝HDFS文件"></a>6. 拷贝HDFS文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -cp [-f] &lt;src&gt; ... &lt;dst&gt;</span><br><span class="line">hdfs dfs -cp [-f] &lt;src&gt; ... &lt;dst&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-f 覆盖目标文件（已存在下）</li>
+</ul>
+<h4 id="7-追加数据到HDFS文件中"><a href="#7-追加数据到HDFS文件中" class="headerlink" title="7. 追加数据到HDFS文件中"></a>7. 追加数据到HDFS文件中</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -appendToFile &lt;localsrc&gt; ... &lt;dst&gt;</span><br><span class="line">hdfs dfs -appendToFile &lt;localsrc&gt; ... &lt;dst&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>只能删除或者追加，不能修改</li>
+<li>将所有给定本地文件的内容追加到给定dst文件</li>
+<li>dst如果文件不存在，将创建该文件</li>
+<li>如果<localsrc>为-，则输入为从标准输入中读取</li>
+</ul>
+<h4 id="8-HDFS数据移动操作"><a href="#8-HDFS数据移动操作" class="headerlink" title="8. HDFS数据移动操作"></a>8. HDFS数据移动操作</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -mv &lt;src&gt; ... &lt;dst&gt;</span><br><span class="line">hdfs dfs -mv &lt;src&gt; ... &lt;dst&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>移动文件到指定文件夹下</li>
+<li>可以使用该命令移动数据，重命名文件到名称</li>
+</ul>
+<h4 id="9-HDFS数据删除操作"><a href="#9-HDFS数据删除操作" class="headerlink" title="9. HDFS数据删除操作"></a>9. HDFS数据删除操作</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -rm -r [-skipTrash] URI [URI ...]</span><br><span class="line">hdfs dfs -rm -r [-skipTrash] URI [URI ...]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除指定路径的文件或文件夹</li>
+<li>skipTrash 跳过回收站，直接删除</li>
+<li>回收站功能默认关闭，如果要开启需要在core-site.xml内配置：<blockquote>
+<p>&lt;property&gt;<br>&lt;name&gt;fs.trash.interval&lt;&#x2F;name&gt;<br>&lt;value&gt;1440&lt;&#x2F;value&gt;<br>&lt;&#x2F;property&gt;</p>
+<p>&lt;property&gt;<br>&lt;name&gt;fs.trash.checkpoint.interval&lt;&#x2F;name&gt;<br>&lt;value&gt;120&lt;&#x2F;value&gt;<br>&lt;&#x2F;property&gt;</p>
+</blockquote>
+</li>
+<li>无需重启集群，在哪个机器配置，在哪个机器执行命令就生效。</li>
+<li>回收站默认位置在：&#x2F;user&#x2F;用户名(hadoop)&#x2F;.Trash</li>
+</ul>
+<h3 id="HDFS-WEB浏览"><a href="#HDFS-WEB浏览" class="headerlink" title="HDFS WEB浏览"></a>HDFS WEB浏览</h3><h3 id="HDFS客户端-Jetbrians产品插件"><a href="#HDFS客户端-Jetbrians产品插件" class="headerlink" title="HDFS客户端 - Jetbrians产品插件"></a>HDFS客户端 - Jetbrians产品插件</h3><h3 id="HDFS客户端-NFS"><a href="#HDFS客户端-NFS" class="headerlink" title="HDFS客户端 - NFS"></a>HDFS客户端 - NFS</h3><h2 id="HDFS的存储原理"><a href="#HDFS的存储原理" class="headerlink" title="HDFS的存储原理"></a>HDFS的存储原理</h2><h3 id="存储原理"><a href="#存储原理" class="headerlink" title="存储原理"></a>存储原理</h3><ol>
+<li>数据存入HDFS是分布式存储，即每一个服务器节点，负责数据的一部分。</li>
+<li>数据在HDFS上是划分为一个个Block块进行存储。</li>
+<li>在HDFS上，数据Block块可以有多个副本，提高数据安全性</li>
+</ol>
+<h3 id="HDFS副本块数量的配置"><a href="#HDFS副本块数量的配置" class="headerlink" title="HDFS副本块数量的配置"></a>HDFS副本块数量的配置</h3><ul>
+<li><p>在hdfs-site.xml中配置如下属性：</p>
+<blockquote>
+<p>&lt;property&gt;<br>   &lt;name&gt;dfs.replication&lt;&#x2F;name&gt;<br>   &lt;value&gt;3&lt;&#x2F;value&gt;<br>&lt;&#x2F;property&gt;</p>
+</blockquote>
+<p>  这个属性值默认是3，一般情况下无需主动配置</p>
+</li>
+<li><p>除了配置文件外，还可以在上传文件的时候，临时决定被上传文件以多少个副本存储。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -D dfs.replication=2 -put test.txt /tmp/</span><br></pre></td></tr></table></figure>
+<p>如上命令可以在上传test.txt的时候，临时设置其副本数为2</p>
+</li>
+<li><p>对于已经存在HDFS的文件，修改dfs.replication属性不会生效，如果要修改已存在文件可以通过命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -setrep [-R] 2 path</span><br></pre></td></tr></table></figure>
+<p>如上命令，指定path的内容将会被修改为2个副本存储。<br>-R选项可选，使用-R表示对子目录也生效。</p>
+</li>
+</ul>
+<h3 id="fsck命令"><a href="#fsck命令" class="headerlink" title="fsck命令"></a>fsck命令</h3><h3 id="NameNode元数据"><a href="#NameNode元数据" class="headerlink" title="NameNode元数据"></a>NameNode元数据</h3><h3 id="HDFS数据的读写流程"><a href="#HDFS数据的读写流程" class="headerlink" title="HDFS数据的读写流程"></a>HDFS数据的读写流程</h3></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://left-tt.github.io">Chang Liu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://left-tt.github.io/2025/02/25/Hadoop/">http://left-tt.github.io/2025/02/25/Hadoop/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://left-tt.github.io" target="_blank">Chang's Blog</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/drinkingcat.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="prev-post pull-left" href="/2025/07/31/%E5%B0%8F%E7%BA%A2%E4%B9%A6%E7%AB%9E%E5%93%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD%E4%BC%98%E5%8C%96%E8%AE%BE%E8%AE%A1/" title="小红书产品分析与功能优化提案"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">小红书产品分析与功能优化提案</div></div></a><a class="next-post pull-right" href="/2025/02/11/AI-Large-Model/" title="AI Large Model"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">AI Large Model</div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><span id="switch-btn"></span><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info is-center"><div class="avatar-img"><img src="/img/drinkingcat.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Chang Liu</div><div class="author-info-description">Stay Hungry, Stay Foolish.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Left-tt"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">正在施工...升级打怪中...</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HDFS%E7%9A%84Shell%E6%93%8D%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">HDFS的Shell操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E5%90%AF%E5%81%9C%E7%AE%A1%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text">进程启停管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%B8%80%E9%94%AE%E5%90%AF%E5%81%9C%E8%84%9A%E6%9C%AC"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. 一键启停脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%8B%AC%E7%AB%8B%E8%BF%9B%E7%A8%8B%E5%90%AF%E5%81%9C"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. 独立进程启停</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E6%93%8D%E4%BD%9C"><span class="toc-number">1.2.</span> <span class="toc-text">文件系统命令操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 创建文件夹</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%9F%A5%E7%9C%8B%E6%8C%87%E5%AE%9A%E7%9B%AE%E5%BD%95%E4%B8%8B%E5%86%85%E5%AE%B9"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. 查看指定目录下内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%88%B0HDFS%E6%8C%87%E5%AE%9A%E7%9B%AE%E5%BD%95%E4%B8%8B"><span class="toc-number">1.2.3.</span> <span class="toc-text">3. 上传文件到HDFS指定目录下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%9F%A5%E7%9C%8BHDFS%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="toc-number">1.2.4.</span> <span class="toc-text">4. 查看HDFS文件内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E4%B8%8B%E8%BD%BDHDFS%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.5.</span> <span class="toc-text">5. 下载HDFS文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E6%8B%B7%E8%B4%9DHDFS%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.6.</span> <span class="toc-text">6. 拷贝HDFS文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E8%BF%BD%E5%8A%A0%E6%95%B0%E6%8D%AE%E5%88%B0HDFS%E6%96%87%E4%BB%B6%E4%B8%AD"><span class="toc-number">1.2.7.</span> <span class="toc-text">7. 追加数据到HDFS文件中</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-HDFS%E6%95%B0%E6%8D%AE%E7%A7%BB%E5%8A%A8%E6%93%8D%E4%BD%9C"><span class="toc-number">1.2.8.</span> <span class="toc-text">8. HDFS数据移动操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-HDFS%E6%95%B0%E6%8D%AE%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C"><span class="toc-number">1.2.9.</span> <span class="toc-text">9. HDFS数据删除操作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HDFS-WEB%E6%B5%8F%E8%A7%88"><span class="toc-number">1.3.</span> <span class="toc-text">HDFS WEB浏览</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HDFS%E5%AE%A2%E6%88%B7%E7%AB%AF-Jetbrians%E4%BA%A7%E5%93%81%E6%8F%92%E4%BB%B6"><span class="toc-number">1.4.</span> <span class="toc-text">HDFS客户端 - Jetbrians产品插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HDFS%E5%AE%A2%E6%88%B7%E7%AB%AF-NFS"><span class="toc-number">1.5.</span> <span class="toc-text">HDFS客户端 - NFS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HDFS%E7%9A%84%E5%AD%98%E5%82%A8%E5%8E%9F%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">HDFS的存储原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%8E%9F%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">存储原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HDFS%E5%89%AF%E6%9C%AC%E5%9D%97%E6%95%B0%E9%87%8F%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.</span> <span class="toc-text">HDFS副本块数量的配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fsck%E5%91%BD%E4%BB%A4"><span class="toc-number">2.3.</span> <span class="toc-text">fsck命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NameNode%E5%85%83%E6%95%B0%E6%8D%AE"><span class="toc-number">2.4.</span> <span class="toc-text">NameNode元数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HDFS%E6%95%B0%E6%8D%AE%E7%9A%84%E8%AF%BB%E5%86%99%E6%B5%81%E7%A8%8B"><span class="toc-number">2.5.</span> <span class="toc-text">HDFS数据的读写流程</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/12/bodies/" title="bodies">bodies</a><time datetime="2025-08-12T01:40:40.000Z" title="发表于 2025-08-12 09:40:40">2025-08-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/31/%E5%B0%8F%E7%BA%A2%E4%B9%A6%E7%AB%9E%E5%93%81%E5%88%86%E6%9E%90%E4%B8%8E%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD%E4%BC%98%E5%8C%96%E8%AE%BE%E8%AE%A1/" title="小红书产品分析与功能优化提案">小红书产品分析与功能优化提案</a><time datetime="2025-07-31T05:17:54.000Z" title="发表于 2025-07-31 13:17:54">2025-07-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/25/Hadoop/" title="Hadoop">Hadoop</a><time datetime="2025-02-25T10:32:02.000Z" title="发表于 2025-02-25 18:32:02">2025-02-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/11/AI-Large-Model/" title="AI Large Model">AI Large Model</a><time datetime="2025-02-11T11:50:15.000Z" title="发表于 2025-02-11 19:50:15">2025-02-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/20/MongoDB/" title="MongoDB 基础语法">MongoDB 基础语法</a><time datetime="2024-11-20T08:47:19.000Z" title="发表于 2024-11-20 16:47:19">2024-11-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2025 By Chang Liu</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a href="https://left-tt.github.io/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !true) {
+    if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><script>(() => {
+  const disqus_config = function () {
+    this.page.url = 'http://left-tt.github.io/2025/02/25/Hadoop/'
+    this.page.identifier = '/2025/02/25/Hadoop/'
+    this.page.title = 'Hadoop'
+  }
+
+  const disqusReset = () => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  btf.addGlobalFn('themeChange', disqusReset, 'disqus')
+
+  const loadDisqus = () =>{
+    if (window.DISQUS) disqusReset()
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if ('Valine' === 'Disqus' || !true) {
+    if (true) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      GLOBAL_CONFIG_SITE.isPost && getCount()
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
