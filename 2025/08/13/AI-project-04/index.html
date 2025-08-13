@@ -1,0 +1,287 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>04 AI项目实战：新闻分类 | Chang's Blog</title><meta name="author" content="Chang Liu"><meta name="copyright" content="Chang Liu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="使用 scikit-learn 进行 20newsgroups 分类任务 12345678910111213141516171819202122from sklearn.datasets import fetch_20newsgroupsfrom sklearn.feature_extraction.text import CountVectorizerfrom sklearn.linear_mo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="04 AI项目实战：新闻分类">
+<meta property="og:url" content="http://left-tt.github.io/2025/08/13/AI-project-04/index.html">
+<meta property="og:site_name" content="Chang&#39;s Blog">
+<meta property="og:description" content="使用 scikit-learn 进行 20newsgroups 分类任务 12345678910111213141516171819202122from sklearn.datasets import fetch_20newsgroupsfrom sklearn.feature_extraction.text import CountVectorizerfrom sklearn.linear_mo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://left-tt.github.io/img/drinkingcat.png">
+<meta property="article:published_time" content="2025-08-13T08:17:00.000Z">
+<meta property="article:modified_time" content="2025-08-13T08:21:06.022Z">
+<meta property="article:author" content="Chang Liu">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://left-tt.github.io/img/drinkingcat.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://left-tt.github.io/2025/08/13/AI-project-04/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '04 AI项目实战：新闻分类',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2025-08-13 16:21:06'
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Chang's Blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/drinkingcat.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Chang's Blog"><span class="site-name">Chang's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">04 AI项目实战：新闻分类</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-08-13T08:17:00.000Z" title="发表于 2025-08-13 16:17:00">2025-08-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-08-13T08:21:06.022Z" title="更新于 2025-08-13 16:21:06">2025-08-13</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="04 AI项目实战：新闻分类"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>使用 scikit-learn 进行 20newsgroups 分类任务</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> fetch_20newsgroups</span><br><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> CountVectorizer</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> make_pipeline</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score</span><br><span class="line"></span><br><span class="line"><span class="comment"># 载入 20newsgroups 数据集</span></span><br><span class="line">newsgroups_train = fetch_20newsgroups(subset=<span class="string">&#x27;train&#x27;</span>)</span><br><span class="line">newsgroups_test = fetch_20newsgroups(subset=<span class="string">&#x27;test&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个 Pipeline，用于文本特征提取和 logistic regression</span></span><br><span class="line">pipeline = make_pipeline(CountVectorizer(), LogisticRegression())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用训练集训练模型</span></span><br><span class="line">pipeline.fit(newsgroups_train.data, newsgroups_train.target)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在测试集上进行预测</span></span><br><span class="line">y_pred = pipeline.predict(newsgroups_test.data)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出模型的准确率</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Accuracy: %.2f&quot;</span> % accuracy_score(newsgroups_test.target, y_pred))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在这个代码中，我们首先使用 <code>fetch_20newsgroups()</code> 方法从 scikit-learn 自带的数据集中载入 20newsgroups 数据集。</p>
+<p>然后，我们使用 <code>make_pipeline()</code> 方法创建了一个 Pipeline，其中包括了 CountVectorizer() 和 LogisticRegression()。</p>
+<p>我们使用 <code>fit()</code> 方法在训练集上训练模型。之后，我们使用 <code>predict()</code> 方法对测试集进行预测，并使用 <code>accuracy_score()</code> 方法计算模型的准确率。</p>
+<p>最后，我们打印出模型的准确率。</p>
+<p>CountVectorizer() 是一个用于文本特征提取的方法，它将文本转换为单词计数的向量。</p>
+<p>LogisticRegression() 是一种常用的分类算法，用于将输入特征映射到分类概率。</p>
+<p>通过将 CountVectorizer() 和 LogisticRegression() 组合起来使用，我们可以很方便地完成文本分类任务。</p>
+<p><code>CountVectorizer</code>是scikit-learn中的一个文本特征提取方法，它将文本转换为单词计数的向量。其具体作用是将文本中的单词转换为特征向量，使得机器学习模型可以对文本进行分析和处理。</p>
+<p>下面是一个例子，假设我们有以下三个文本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">文本<span class="number">1</span>: This <span class="keyword">is</span> a sample text.</span><br><span class="line">文本<span class="number">2</span>: This text <span class="keyword">is</span> another example text.</span><br><span class="line">文本<span class="number">3</span>: This <span class="keyword">is</span> just another text.</span><br></pre></td></tr></table></figure>
+
+<p>我们可以使用<code>CountVectorizer</code>将它们转换为向量表示。首先，需要导入CountVectorizer：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> CountVectorizer</span><br></pre></td></tr></table></figure>
+
+<p>然后，创建一个CountVectorizer对象，并将文本数据传递给它的<code>fit_transform()</code>方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">corpus = [</span><br><span class="line">    <span class="string">&#x27;This is a sample text.&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;This text is another example text.&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;This is just another text.&#x27;</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">vectorizer = CountVectorizer()</span><br><span class="line">X = vectorizer.fit_transform(corpus)</span><br></pre></td></tr></table></figure>
+
+<p><code>X</code>现在是一个稀疏矩阵，每一行代表一个文本，每一列代表一个单词。单词的出现次数则在矩阵中体现。我们可以使用以下代码查看向量的表示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(X.toarray())</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span>]</span><br><span class="line"> [<span class="number">0</span> <span class="number">2</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span>]</span><br><span class="line"> [<span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span>]]</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，矩阵中的每一行都是一个向量，每一列都代表一个单词。例如，第一行表示的向量是[1, 1, 1, 0, 0, 0, 1, 0, 0]，这个向量的第一个元素代表单词“a”在这个文本中出现了1次，第二个元素代表单词“another”在这个文本中出现了1次，以此类推。</p>
+<p>通过<code>CountVectorizer</code>，我们可以将文本数据转换为数字向量，从而可以使用机器学习算法对文本进行分析和处理。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://left-tt.github.io">Chang Liu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://left-tt.github.io/2025/08/13/AI-project-04/">http://left-tt.github.io/2025/08/13/AI-project-04/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://left-tt.github.io" target="_blank">Chang's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/AI/">AI</a></div><div class="post-share"><div class="social-share" data-image="/img/drinkingcat.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="prev-post pull-left" href="/2025/08/13/AI-project-05/" title="05 AI项目实战：手写数字识别"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">05 AI项目实战：手写数字识别</div></div></a><a class="next-post pull-right" href="/2025/08/13/AI-project-03/" title="03 AI项目实战：鸢尾花分类预测"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">03 AI项目实战：鸢尾花分类预测</div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a href="/2025/08/13/AI-project-01/" title="01 AI项目实战：说话人识别"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-13</div><div class="title">01 AI项目实战：说话人识别</div></div></a><a href="/2025/08/13/AI-project-02/" title="02 AI项目实战：糖尿病回归预测"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-13</div><div class="title">02 AI项目实战：糖尿病回归预测</div></div></a><a href="/2025/08/13/AI-project-05/" title="05 AI项目实战：手写数字识别"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-13</div><div class="title">05 AI项目实战：手写数字识别</div></div></a><a href="/2025/08/13/AI-project-03/" title="03 AI项目实战：鸢尾花分类预测"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-13</div><div class="title">03 AI项目实战：鸢尾花分类预测</div></div></a><a href="/2025/08/13/AI-project-07/" title="07 AI项目实战：MNIST数据集读取"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-13</div><div class="title">07 AI项目实战：MNIST数据集读取</div></div></a><a href="/2025/08/13/AI-project-06/" title="06 AI项目实战：KMeans聚类代码实现"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-13</div><div class="title">06 AI项目实战：KMeans聚类代码实现</div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><span id="switch-btn"></span><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info is-center"><div class="avatar-img"><img src="/img/drinkingcat.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Chang Liu</div><div class="author-info-description">Stay Hungry, Stay Foolish.</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Left-tt"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">正在施工...升级打怪中...</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/13/AI-project-07/" title="07 AI项目实战：MNIST数据集读取">07 AI项目实战：MNIST数据集读取</a><time datetime="2025-08-13T08:17:45.000Z" title="发表于 2025-08-13 16:17:45">2025-08-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/13/AI-project-06/" title="06 AI项目实战：KMeans聚类代码实现">06 AI项目实战：KMeans聚类代码实现</a><time datetime="2025-08-13T08:17:33.000Z" title="发表于 2025-08-13 16:17:33">2025-08-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/13/AI-project-05/" title="05 AI项目实战：手写数字识别">05 AI项目实战：手写数字识别</a><time datetime="2025-08-13T08:17:18.000Z" title="发表于 2025-08-13 16:17:18">2025-08-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/13/AI-project-04/" title="04 AI项目实战：新闻分类">04 AI项目实战：新闻分类</a><time datetime="2025-08-13T08:17:00.000Z" title="发表于 2025-08-13 16:17:00">2025-08-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/13/AI-project-03/" title="03 AI项目实战：鸢尾花分类预测">03 AI项目实战：鸢尾花分类预测</a><time datetime="2025-08-13T08:16:51.000Z" title="发表于 2025-08-13 16:16:51">2025-08-13</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2025 By Chang Liu</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a href="https://left-tt.github.io/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !true) {
+    if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><script>(() => {
+  const disqus_config = function () {
+    this.page.url = 'http://left-tt.github.io/2025/08/13/AI-project-04/'
+    this.page.identifier = '/2025/08/13/AI-project-04/'
+    this.page.title = '04 AI项目实战：新闻分类'
+  }
+
+  const disqusReset = () => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  btf.addGlobalFn('themeChange', disqusReset, 'disqus')
+
+  const loadDisqus = () =>{
+    if (window.DISQUS) disqusReset()
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if ('Valine' === 'Disqus' || !true) {
+    if (true) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      GLOBAL_CONFIG_SITE.isPost && getCount()
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
