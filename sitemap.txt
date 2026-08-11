@@ -1,3 +1,4 @@
+http://left-tt.github.io/2026/08/11/test/
 http://left-tt.github.io/2025/08/13/AI-project-07/
 http://left-tt.github.io/2025/08/13/AI-project-06/
 http://left-tt.github.io/2025/08/13/AI-project-05/
@@ -21,8 +22,8 @@ http://left-tt.github.io/link/index.html
 http://left-tt.github.io/categories/index.html
 http://left-tt.github.io/tags/index.html
 http://left-tt.github.io/
-http://left-tt.github.io/tags/DATA-SYSTEM/
-http://left-tt.github.io/tags/%E4%BA%A7%E5%93%81/
-http://left-tt.github.io/tags/English/
-http://left-tt.github.io/tags/Big-Data/
 http://left-tt.github.io/tags/AI/
+http://left-tt.github.io/tags/DATA-SYSTEM/
+http://left-tt.github.io/tags/Big-Data/
+http://left-tt.github.io/tags/English/
+http://left-tt.github.io/tags/%E4%BA%A7%E5%93%81/
