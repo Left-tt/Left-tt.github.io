@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://left-tt.github.io/2025/08/13/AI-project-01/</loc>
+    
+    <lastmod>2026-08-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://left-tt.github.io/2025/08/13/AI-project-02/</loc>
     
     <lastmod>2026-08-19</lastmod>
@@ -75,15 +84,6 @@
   
   <url>
     <loc>http://left-tt.github.io/2025/08/13/AI-project-03/</loc>
-    
-    <lastmod>2025-08-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://left-tt.github.io/2025/08/13/AI-project-01/</loc>
     
     <lastmod>2025-08-13</lastmod>
     
@@ -257,6 +257,13 @@
   </url>
   
   <url>
+    <loc>http://left-tt.github.io/tags/%E4%BA%A7%E5%93%81/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://left-tt.github.io/tags/Sony/</loc>
     <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -279,13 +286,6 @@
   
   <url>
     <loc>http://left-tt.github.io/tags/English/</loc>
-    <lastmod>2026-08-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://left-tt.github.io/tags/%E4%BA%A7%E5%93%81/</loc>
     <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
